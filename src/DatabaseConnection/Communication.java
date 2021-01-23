@@ -30,19 +30,6 @@ public class Communication {
             // Voer de query uit op de database.
             rs = stmt.executeQuery(SQL);
 
-            // Als de resultset waarden bevat dan lopen we hier door deze waarden en printen
-            // ze.
-            while (rs.next()) {
-                // Vraag per row de kolommen in die row op.
-                String email = rs.getString("Email");
-                String name = rs.getString("Name");
-                Date birthDate = rs.getDate("BirthDate");
-                String gender = rs.getString("Gender");
-                String address = rs.getString("Address");
-                String residence = rs.getString("Residence");
-                String country = rs.getString("Country");
-            }
-
         }
 
         // Handle any errors that may have occurred.
