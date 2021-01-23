@@ -10,13 +10,13 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import person.Cursist;
-import DatabaseConnection.Communicatie;
+import DatabaseConnection.Communication;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class InputCursist {
     private ArrayList<Cursist> list;
-    private Communicatie com = new Communicatie();
+    private Communication com = new Communication();
 
     public InputCursist(Cursist cursist) {
         this.list = new ArrayList<>();
@@ -65,16 +65,16 @@ public class InputCursist {
         layout.add(addButton, 0, 14);
 
         addButton.setOnMouseClicked((event) -> {
-            String word = wordField.getText();
-            String naam = nameField.getText();
-            String geboorte = geboorteField.getText();
-            String geslacht = geslachtField.getText();
-            String adres = adresField.getText();
-            String woonplaats = woonplaatsField.getText();
-            String land = landField.getText();
-            String[] parts = geboorte.split("-");
-            geboorte = parts[2] + "-" + parts[1] + "-" + parts[0];
-            String SQL = "INSERT INTO Cursist VALUES('" + word + "','" + naam + "','" + geboorte + "','" + geslacht + "','" + adres + "','" + woonplaats + "','" + land + "')";
+            String email = wordField.getText();
+            String name = nameField.getText();
+            String birthday = geboorteField.getText();
+            String gender = geslachtField.getText();
+            String adress = adresField.getText();
+            String residence = woonplaatsField.getText();
+            String country = landField.getText();
+            String[] parts = birthday.split("-");
+            birthday = parts[2] + "-" + parts[1] + "-" + parts[0];
+            String SQL = "INSERT INTO Cursist VALUES('" + email + "','" + name + "','" + birthday + "','" + gender + "','" + adress + "','" + residence + "','" + country + "')";
             com.addToDatabase(SQL);
             wordField.clear();
             nameField.clear();
