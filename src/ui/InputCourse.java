@@ -2,6 +2,7 @@ package ui;
 
 import java.util.ArrayList;
 
+import DatabaseConnection.Communication;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
@@ -13,13 +14,14 @@ import products.Cursus;
 
 public class InputCourse {
     private ArrayList<Cursus> list;
+    private Communication com = new Communication();
 
-    public InputCourse(Cursus course){
+    public InputCourse(Cursus course) {
         this.list = new ArrayList<>();
         this.list.add(course);
     }
 
-    public Parent getView(){
+    public Parent getView() {
         GridPane layout = new GridPane();
 
         Label nameInstruction = new Label("Cursus Naam");
@@ -30,7 +32,6 @@ public class InputCourse {
         TextField introField = new TextField();
         Label difficultyInstruction = new Label("Moeilijkheidsgraad");
         TextField difficultyField = new TextField();
-        
 
         layout.setAlignment(Pos.CENTER);
         layout.setVgap(10);
@@ -48,16 +49,14 @@ public class InputCourse {
         layout.add(difficultyInstruction, 0, 6);
         layout.add(difficultyField, 0, 7);
         layout.add(addButton, 0, 8);
-       
 
         addButton.setOnMouseClicked((event) -> {
             String name = nameField.getText();
             String subject = subjectField.getText();
             String intro = introField.getText();
-            String difficulty = difficultyField.getText();
-            
-
-            //list.add(name, subject, intro, difficulty);
+            int difficulty = Integer.valueOf(difficultyField.getText());
+            String SQL = "INSERT INTO Cursus VALUES('" + name + "','" + subject + "','" + intro + "','" + difficulty+ "')";
+            com.addToDatabase(SQL);
 
             nameField.clear();
             subjectField.clear();
