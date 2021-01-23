@@ -10,16 +10,20 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import person.Cursist;
+import DatabaseConnection.Communicatie;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class InputCursist {
     private ArrayList<Cursist> list;
+    private Communicatie com = new Communicatie();
 
-    public InputCursist(Cursist cursist){
+    public InputCursist(Cursist cursist) {
         this.list = new ArrayList<>();
         this.list.add(cursist);
     }
 
-    public Parent getView(){
+    public Parent getView() {
         GridPane layout = new GridPane();
 
         Label emailInstruction = new Label("Email");
@@ -68,9 +72,10 @@ public class InputCursist {
             String adres = adresField.getText();
             String woonplaats = woonplaatsField.getText();
             String land = landField.getText();
-
-            //dictionary.add(word, naam, geboorte, geslacht, adres, woonplaats, land);
-
+            String[] parts = geboorte.split("-");
+            geboorte = parts[2] + "-" + parts[1] + "-" + parts[0];
+            String SQL = "INSERT INTO Cursist VALUES('" + word + "','" + naam + "','" + geboorte + "','" + geslacht + "','" + adres + "','" + woonplaats + "','" + land + "')";
+            com.addToDatabase(SQL);
             wordField.clear();
             nameField.clear();
             geboorteField.clear();
