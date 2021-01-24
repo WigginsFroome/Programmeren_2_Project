@@ -13,10 +13,10 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import products.Cursus;
 import products.Module;
-import ui.Main;
+import DatabaseConnection.Communication;
 
 public class ModuleView {
-    private Main com = new Main();
+    private Communication com = new Communication();
     private ArrayList<Cursus> cursus;
     private ArrayList<Module> module;
     private ArrayList<String> courses = new ArrayList<>();
@@ -41,6 +41,8 @@ public class ModuleView {
         Label courseLabel = new Label("Cursus");
         TextField courseTextField = new TextField();
         ComboBox courseField = new ComboBox(FXCollections.observableArrayList(this.courses));
+        Label moduleLabel = new Label("modules");
+        TextField moduleField = new TextField();
         
 
         layout.setAlignment(Pos.CENTER);
@@ -61,12 +63,15 @@ public class ModuleView {
             String SQL = 
             "(SELECT AVG(Percentage) AS 'Percentage', Module.OrderNumber FROM Cursist JOIN PercentageWatched ON PercentageWatched.Email = Cursist.Email JOIN Content ON Content.ContentItemId = PercentageWatched.ContentItemId JOIN Module ON Module.ContentItemId = Content.ContentItemId JOIN Cursus ON Cursus.CursusName = Content.CursusName GROUP BY OrderNumber)";
             String cursusQuery = "SELECT CursusName FROM Course";
-            this.courses = com.getList1FromDatabase(cursusQuery, "CursusName");
+            this.courses = com.getListFromDatabase(cursusQuery, "CursusName");
             String moduleQuery = "SELECT OrderNumber FROM Module";
-            this.modules = com.getList1FromDatabase(moduleQuery, "OrderNumber");
+            this.modules = com.getListFromDatabase(moduleQuery, "OrderNumber");
 
             System.out.println(SQL);  
-            
+            for(int i = 0; i < 3; i++){
+                modules.get(i);
+                System.out.println(modules);
+            }
         
             courseTextField.clear();
         });
