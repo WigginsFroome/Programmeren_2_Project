@@ -45,7 +45,7 @@ public class UI extends Application {
         InputCertificate inputCertificate = new InputCertificate(certificate);
         InputRegistration inputRegistration = new InputRegistration();
         GenderView genderPercentage = new GenderView(cursist);
-        ModuleView moduleView = new ModuleView(module);
+        ModuleView moduleView = new ModuleView(cursus, module);
         AccountCourseView accountCourseView = new AccountCourseView(cursist, module);
         AccountCertificate accountCertificateView = new AccountCertificate(cursist, certificate);
         ViewedWebcasts webcastView = new ViewedWebcasts(cursist, webcast);
