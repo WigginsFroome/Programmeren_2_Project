@@ -28,11 +28,11 @@ public class InputCertificate {
     public Parent getView() {
         GridPane layout = new GridPane();
 
-        String courseQuery = "SELECT CursusName FROM Registration";
+        String courseQuery = "SELECT CursusName FROM Registration GROUP BY CursusName";
         this.courses = com.getListFromDatabase(courseQuery, "CursusName");
-        String dateQuery = "SELECT RegistrationDate FROM Registration";
+        String dateQuery = "SELECT RegistrationDate FROM Registration GROUP BY RegistrationDate";
         this.dates = com.getListFromDatabase(dateQuery, "RegistrationDate");
-        String emailQuery = "SELECT Email FROM Registration";
+        String emailQuery = "SELECT Email FROM Registration GROUP BY Email";
         this.emails = com.getListFromDatabase(emailQuery, "Email");
         Label nameInstruction = new Label("Cursus Naam");
         ComboBox nameField = new ComboBox(FXCollections .observableArrayList(this.courses));
