@@ -6,6 +6,7 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
@@ -33,7 +34,8 @@ public class InputCursist {
         Label geboorteInstruction = new Label("GeboorteDatum");
         TextField geboorteField = new TextField();
         Label geslachtInstruction = new Label("Geslacht");
-        TextField geslachtField = new TextField();
+        ComboBox genderField = new ComboBox();
+        genderField.getItems().addAll("M","V");
         Label adresInstruction = new Label("Adres");
         TextField adresField = new TextField();
         Label woonplaatsInstruction = new Label("Woonplaats");
@@ -55,7 +57,7 @@ public class InputCursist {
         layout.add(geboorteInstruction, 0, 4);
         layout.add(geboorteField, 0, 5);
         layout.add(geslachtInstruction, 0, 6);
-        layout.add(geslachtField, 0, 7);
+        layout.add(genderField, 0, 7);
         layout.add(adresInstruction, 0, 8);
         layout.add(adresField, 0, 9);
         layout.add(woonplaatsInstruction, 0, 10);
@@ -68,7 +70,7 @@ public class InputCursist {
             String email = wordField.getText();
             String name = nameField.getText();
             String birthday = geboorteField.getText();
-            String gender = geslachtField.getText();
+            String gender = (String) genderField.getValue();
             String adress = adresField.getText();
             String residence = woonplaatsField.getText();
             String country = landField.getText();
@@ -79,7 +81,6 @@ public class InputCursist {
             wordField.clear();
             nameField.clear();
             geboorteField.clear();
-            geslachtField.clear();
             adresField.clear();
             woonplaatsField.clear();
             landField.clear();
