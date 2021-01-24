@@ -2,10 +2,13 @@ package ui;
 
 import java.util.ArrayList;
 
+import DatabaseConnection.Communication;
+import javafx.collections.FXCollections;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
@@ -13,29 +16,19 @@ import person.Certificate;
 import person.Cursist;
 
 public class PassedCourse {
-    private ArrayList<Certificate> listCertificate;
-    private ArrayList<Cursist> listCursist;
-    private int amountPassed;
-
-    public PassedCourse(){
-        
-        this.amountPassed = 0;
-
-    }
-
-    public void getAmount(Certificate certificate, Cursist cursist){
-        this.listCertificate = new ArrayList<>();
-        this.listCertificate.add(certificate);
-        this.listCursist = new ArrayList<>();
-        this.listCursist.add(cursist);
-    }
+    private Communication com = new Communication();
+    private ArrayList<String> courses = new ArrayList<>();
+    private ArrayList<String> passedCourses = new ArrayList<>();
 
     public Parent getView(){
         GridPane layout = new GridPane();
 
-        Label courseLabel = new Label("Type the course");
-        TextField courseTextField = new TextField();
-        
+        String courseQuery = "SELECT CursusName FROM Registration GROUP BY CursusName";
+        this.courses = com.getListFromDatabase(courseQuery, "CursusName");
+
+        Label courseLabel = new Label("Select course");
+        ComboBox nameField = new ComboBox(FXCollections .observableArrayList(this.courses));
+        Label answerLabel = new Label();
 
         layout.setAlignment(Pos.CENTER);
         layout.setVgap(10);
@@ -45,11 +38,17 @@ public class PassedCourse {
         Button getButton = new Button("Get amount");
 
         layout.add(courseLabel, 0, 0);
-        layout.add(courseTextField, 0, 1);
+        layout.add(nameField, 0, 1);
         layout.add(getButton, 0, 2);
-
+        layout.add(answerLabel, 0,3);
         getButton.setOnMouseClicked((event) -> {
-
+            String cursus = (String) nameField.getValue();
+            String SQL = "SELECT CertificateId FROM Certificate WHERE CursusName = '"+ cursus +"'";
+            System.out.println(SQL);
+            this.passedCourses = com.getListFromDatabase(SQL, "CertificateId");
+            int answer = this.passedCourses.size();
+            String answerText = String.valueOf(answer);
+            answerLabel.setText(answerText + " Cursisten hebben hem behaald");
         });
 
         return layout;
