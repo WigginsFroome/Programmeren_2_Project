@@ -1,11 +1,15 @@
+
 package ui;
 
 import java.util.ArrayList;
 
+import DatabaseConnection.Communication;
+import javafx.collections.FXCollections;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
@@ -15,16 +19,21 @@ import products.Cursus;
 
 public class InputRegistration {
 
-    public InputRegistration(){
-    }
+    private Communication com = new Communication();
+    private ArrayList<String> courses = new ArrayList<>();
+    private ArrayList<String> emails = new ArrayList<>();
 
     public Parent getView(){
         GridPane layout = new GridPane();
+        String courseQuery = "SELECT CursusName FROM Cursus";
+        this.courses = com.getListFromDatabase(courseQuery, "CursusName");
+        String emailQuery = "SELECT Email FROM Cursist";
+        this.emails = com.getListFromDatabase(emailQuery, "Email");
 
         Label nameInstruction = new Label("Cursus Naam");
-        TextField nameField = new TextField();
+        ComboBox nameField = new ComboBox(FXCollections .observableArrayList(this.courses));
         Label emailInstruction = new Label("Email");
-        TextField emailField = new TextField();
+        ComboBox emailField = new ComboBox(FXCollections .observableArrayList(this.emails));
         Label dateInstruction = new Label("Registratie datum");
         TextField dateField = new TextField();
         
@@ -46,15 +55,13 @@ public class InputRegistration {
        
 
         addButton.setOnMouseClicked((event) -> {
-            String name = nameField.getText();
-            String email = emailField.getText();
+            String name = (String) nameField.getValue();
+            String email = (String) emailField.getValue();
             String date = dateField.getText();
-            
-
-            //list.add(name, subject, intro, difficulty);
-
-            nameField.clear();
-            emailField.clear();
+            String[] parts = date.split("-");
+            date = parts[2] + "-" + parts[1] + "-" + parts[0];
+            String SQL = "INSERT INTO Registration VALUES('"+ date + "','" + email + "','" + name + "')";
+            com.addToDatabase(SQL);
             dateField.clear();
         });
 
