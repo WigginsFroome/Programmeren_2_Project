@@ -8,6 +8,13 @@
             "type": "java",
             "name": "Launch UI",
             "request": "launch",
+            "mainClass": "ui.UI",
+            "projectName": "Versie1_e44f5987"
+        },
+        {
+            "type": "java",
+            "name": "Launch UI",
+            "request": "launch",
             "vmArgs": "-p C:\\Dev\\javafx-sdk-11.0.2\\lib --add-modules javafx.controls",
             "mainClass": "ui.UI",
             "projectName": "QuatroOpdracht_50d4a51"
