@@ -16,6 +16,7 @@ import javafx.scene.layout.GridPane;
 import person.Certificate;
 import person.Cursist;
 import products.Cursus;
+import controls.*;
 
 public class InputRegistration {
 
@@ -57,6 +58,7 @@ public class InputRegistration {
         addButton.setOnMouseClicked((event) -> {
             String name = (String) nameField.getValue();
             String email = (String) emailField.getValue();
+            MailTools.validateMailAddress(email);
             String date = dateField.getText();
             String[] parts = date.split("-");
             date = parts[2] + "-" + parts[1] + "-" + parts[0];

@@ -14,6 +14,7 @@ import person.Cursist;
 import DatabaseConnection.Communication;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import controls.*;
 
 public class InputCursist {
     private ArrayList<Cursist> list;
@@ -68,6 +69,7 @@ public class InputCursist {
 
         addButton.setOnMouseClicked((event) -> {
             String email = wordField.getText();
+            MailTools.validateMailAddress(email);
             String name = nameField.getText();
             String birthday = geboorteField.getText();
             String gender = (String) genderField.getValue();

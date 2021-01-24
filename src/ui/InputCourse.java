@@ -12,6 +12,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import products.Cursus;
 
+
 public class InputCourse {
     private ArrayList<Cursus> list;
     private Communication com = new Communication();

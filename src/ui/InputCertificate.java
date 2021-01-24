@@ -1,5 +1,6 @@
 package ui;
 
+import java.io.Console;
 import java.util.ArrayList;
 
 import DatabaseConnection.Communication;
@@ -13,6 +14,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import person.Certificate;
+import controls.*;
 
 public class InputCertificate {
     private ArrayList<Certificate> list;
@@ -68,7 +70,10 @@ public class InputCertificate {
         addButton.setOnMouseClicked((event) -> {
             String name = (String) nameField.getValue();
             String grade = gradeField.getText();
+            int s = Integer.parseInt(grade);
+            Grade.FormatGrade(s);
             String email = (String) emailField.getValue();
+            MailTools.validateMailAddress(email);
             String employee = employeeField.getText();
             String date = (String) dateField.getValue();
             String SQL = "INSERT INTO Certificate(Grade, EmployeeName, RegistrationDate, Email, CursusName) VALUES('"+ grade + "','" + employee + "','" + date + "','" + email + "','" + name + "')";
