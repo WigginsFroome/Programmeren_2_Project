@@ -48,8 +48,8 @@ public class UI extends Application {
         ModuleView moduleView = new ModuleView(cursus, module);
         AccountCourseView accountCourseView = new AccountCourseView(cursist, module);
         AccountCertificate accountCertificateView = new AccountCertificate(cursist, certificate);
-        ViewedWebcasts webcastView = new ViewedWebcasts(cursist, webcast);
-        CertificateCourse courseView = new CertificateCourse(cursus, certificate);
+        ViewedWebcasts webcastView = new ViewedWebcasts(webcast);
+        CertificateCourse courseView = new CertificateCourse(cursus);
         RecommendedCourse recommendedView = new RecommendedCourse();
         PassedCourse passedView = new PassedCourse();
         

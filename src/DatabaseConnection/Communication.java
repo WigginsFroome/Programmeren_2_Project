@@ -9,7 +9,7 @@ public class Communication {
 
         // Dit zijn de instellingen voor de verbinding. Vervang de databaseName indien
         // deze voor jou anders is.
-        String connectionUrl = "jdbc:sqlserver://LAPTOP-Q21ELVRV;databaseName=ProgRDB;integratedSecurity=true;";
+        String connectionUrl = "jdbc:sqlserver://LAPTOP-2V91QL0I;databaseName=ProgRDB;integratedSecurity=true;";
 
         // Connection beheert informatie over de connectie met de database.
         Connection con = null;

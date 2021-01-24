@@ -40,7 +40,7 @@ public class ModuleView {
 
         Label courseLabel = new Label("Cursus");
         TextField courseTextField = new TextField();
-        ComboBox courseField = new ComboBox(FXCollections.observableArrayList(this.courses));;
+        ComboBox courseField = new ComboBox(FXCollections.observableArrayList(this.courses));
         
 
         layout.setAlignment(Pos.CENTER);

@@ -13,15 +13,12 @@ import products.Webcast;
 import person.Cursist;
 
 public class ViewedWebcasts {
-    private ArrayList<Cursist> list;
-    private ArrayList<Webcast> list2;
-    private ArrayList<String> list3;
+    private ArrayList<Webcast> list;
+    private ArrayList<String> list1;
 
-    public ViewedWebcasts(Cursist cursist, Webcast webcast){
+    public ViewedWebcasts(Webcast webcast){
         this.list = new ArrayList<>();
-        this.list.add(cursist);
-        this.list2 = new ArrayList<>();
-        this.list2.add(webcast);
+        this.list.add(webcast);
     }
     
     //Hierin wordt de methode aangemaakt om aan list3 de meest bekeken webcasts toe te voegen 
@@ -39,6 +36,21 @@ public class ViewedWebcasts {
         layout.setVgap(10);
         layout.setHgap(10);
         layout.setPadding(new Insets(10, 10, 10, 10));
+        Button button = new Button("Get Top3");
+        layout.add(button, 0, 0);
+
+        button.setOnMouseClicked((event) -> {
+            
+
+            String SQL = 
+            "(SELECT WebcastId, COUNT(Webcast.ContentItemId) AS Bekeken FROM Content JOIN PercentageWatched ON PercentageWatched.ContentItemId = Content.ContentItemId JOIN Webcast ON Webcast.ContentItemId = Content.WebcastId GROUP BY WebcastId)";
+            
+
+            System.out.println(SQL);  
+            
+        
+            
+        });
 
 
 
