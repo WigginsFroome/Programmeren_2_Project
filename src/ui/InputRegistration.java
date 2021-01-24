@@ -1,3 +1,4 @@
+
 package ui;
 
 import java.util.ArrayList;
@@ -13,70 +14,55 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import person.Certificate;
+import person.Cursist;
+import products.Cursus;
 
-public class InputCertificate {
-    private ArrayList<Certificate> list;
+public class InputRegistration {
+
     private Communication com = new Communication();
     private ArrayList<String> courses = new ArrayList<>();
-    private ArrayList<String> dates = new ArrayList<>();
     private ArrayList<String> emails = new ArrayList<>();
-    public InputCertificate(Certificate certificate) {
-        this.list = new ArrayList<>();
-        this.list.add(certificate);
-    }
 
-    public Parent getView() {
+    public Parent getView(){
         GridPane layout = new GridPane();
-
-        String courseQuery = "SELECT CursusName FROM Registration GROUP BY CursusName";
+        String courseQuery = "SELECT CursusName FROM Cursus";
         this.courses = com.getListFromDatabase(courseQuery, "CursusName");
-        String dateQuery = "SELECT RegistrationDate FROM Registration GROUP BY RegistrationDate";
-        this.dates = com.getListFromDatabase(dateQuery, "RegistrationDate");
-        String emailQuery = "SELECT Email FROM Registration GROUP BY Email";
+        String emailQuery = "SELECT Email FROM Cursist";
         this.emails = com.getListFromDatabase(emailQuery, "Email");
+
         Label nameInstruction = new Label("Cursus Naam");
         ComboBox nameField = new ComboBox(FXCollections .observableArrayList(this.courses));
-        Label gradeInstruction = new Label("Cijfer");
-        TextField gradeField = new TextField();
         Label emailInstruction = new Label("Email");
         ComboBox emailField = new ComboBox(FXCollections .observableArrayList(this.emails));
-        Label employeeInstruction = new Label("Naam medewerker");
-        TextField employeeField = new TextField();
         Label dateInstruction = new Label("Registratie datum");
-        ComboBox dateField = new ComboBox(FXCollections .observableArrayList(this.dates));
+        TextField dateField = new TextField();
+        
 
-        System.out.println(this.dates);
         layout.setAlignment(Pos.CENTER);
         layout.setVgap(10);
         layout.setHgap(10);
         layout.setPadding(new Insets(10, 10, 10, 10));
 
-        Button addButton = new Button("Add certificate");
+        Button addButton = new Button("Add registration");
 
         layout.add(nameInstruction, 0, 0);
         layout.add(nameField, 0, 1);
-        layout.add(gradeInstruction, 0, 2);
-        layout.add(gradeField, 0, 3);
-        layout.add(emailInstruction, 0, 4);
-        layout.add(emailField, 0, 5);
-        layout.add(employeeInstruction, 0, 6);
-        layout.add(employeeField, 0, 7);
-        layout.add(dateInstruction, 0, 8);
-        layout.add(dateField, 0, 9); 
-        layout.add(addButton, 0, 10);
+        layout.add(emailInstruction, 0, 2);
+        layout.add(emailField, 0, 3);
+        layout.add(dateInstruction, 0, 4);
+        layout.add(dateField, 0, 5);
+        layout.add(addButton, 0, 6);
+       
 
         addButton.setOnMouseClicked((event) -> {
             String name = (String) nameField.getValue();
-            String grade = gradeField.getText();
             String email = (String) emailField.getValue();
-            String employee = employeeField.getText();
-            String date = (String) dateField.getValue();
-            String SQL = "INSERT INTO Certificate(Grade, EmployeeName, RegistrationDate, Email, CursusName) VALUES('"+ grade + "','" + employee + "','" + date + "','" + email + "','" + name + "')";
-            System.out.println(SQL);
+            String date = dateField.getText();
+            String[] parts = date.split("-");
+            date = parts[2] + "-" + parts[1] + "-" + parts[0];
+            String SQL = "INSERT INTO Registration VALUES('"+ date + "','" + email + "','" + name + "')";
             com.addToDatabase(SQL);
-
-            gradeField.clear();
-            employeeField.clear();
+            dateField.clear();
         });
 
         return layout;
